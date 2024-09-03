@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Byte.TalentScout.Domain\Byte.TalentScout.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
