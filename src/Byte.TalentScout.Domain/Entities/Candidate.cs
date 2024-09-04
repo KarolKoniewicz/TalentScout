@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿namespace Byte.TalentScout.Domain.Entities;
 
-namespace Byte.TalentScout.Domain.Entities;
 
-public class Candidate : IdentityUser<long>
+public class Candidate
 {
     public long Id { get; set; } // would go for Guid normally.
     public string FirstName { get; set; }

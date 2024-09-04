@@ -5,8 +5,9 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Byte.TalentScout.Database;
 
-public class TalentScoutIdentityDbContext : IdentityDbContext<Candidate, IdentityRole<long>, long>
+public class TalentScoutIdentityDbContext : IdentityDbContext<ApplicationUser, IdentityRole<string>, string>
 {
+    public DbSet<ApplicationUser> Users { get; set; }
     public DbSet<Candidate> Candidates { get; set; }
     public DbSet<Degree> Degrees { get; set; }
 

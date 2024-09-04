@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Byte.TalentScout.Database\Byte.TalentScout.Database.csproj" />
     <ProjectReference Include="..\Byte.TalentScout.Domain\Byte.TalentScout.Domain.csproj" />
   </ItemGroup>
 
