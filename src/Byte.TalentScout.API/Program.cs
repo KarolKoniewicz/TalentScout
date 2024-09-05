@@ -1,4 +1,3 @@
-using System.Security.Claims;
 using Byte.TalentScout.Database;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

@@ -17,8 +17,4 @@
     <ProjectReference Include="..\Byte.TalentScout.Database\Byte.TalentScout.Database.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>
