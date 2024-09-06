@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.8" />
@@ -14,7 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Byte.TalentScout.Application\Byte.TalentScout.Application.csproj" />
+    <ProjectReference Include="..\Byte.TalentScout.Client\Byte.TalentScout.Client.csproj" />
     <ProjectReference Include="..\Byte.TalentScout.Database\Byte.TalentScout.Database.csproj" />
+    <ProjectReference Include="..\Byte.TalentScout.Infrastructure\Byte.TalentScout.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,65 @@
+﻿@page "/candidates"
+@using Byte.TalentScout.Client.Handlers
+@using Byte.TalentScout.Domain.Entities
+@using Microsoft.AspNetCore.Components.Authorization
+@inject HttpClientErrorWrapper Http;
+
+<AuthorizeView Context="authContext">
+    <Authorized>
+
+        <h3>Candidate List</h3>
+
+        @if (candidates == null)
+        {
+            <p>Loading...</p>
+        }
+        else if (candidates.Count == 0)
+        {
+            <p>No candidates available.</p>
+        }
+        else
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Mobile</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var candidate in candidates)
+                    {
+                        <tr>
+                            <td>@candidate.FirstName</td>
+                            <td>@candidate.LastName</td>
+                            <td>@candidate.Email</td>
+                            <td>@candidate.Mobile</td>
+                            <td>
+                                <button class="btn btn-danger" @onclick="() => DeleteCandidate(candidate.Id)">Delete</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
+        @code {
+        private List<Candidate> candidates;
+
+        protected override async Task OnInitializedAsync()
+        {
+            candidates = await Http.GetFromJsonAsync<List<Candidate>>($"candidates");
+        }
+
+        private async Task DeleteCandidate(long id)
+        {
+            //     await CandidateService.DeleteCandidateAsync(id);
+            //     candidates = await CandidateService.GetAllCandidatesAsync();
+        }
+        }
+
+    </Authorized>
+</AuthorizeView>

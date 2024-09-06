@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="app.css" />
         <link rel="stylesheet" href="Byte.TalentScout.UI.styles.css" />
         <link rel="icon" type="image/png" href="favicon.png" />
-        <HeadOutlet />
+        <HeadOutlet @rendermode="new InteractiveServerRenderMode(prerender: false)" />
     </head>
 
     <div class="sidebar">
@@ -28,7 +28,8 @@
         </article>
     </main>
 
-    <script src="_framework/blazor.web.js"></script>
+    <script src="_framework/blazor.server.js"></script>
+    <script src="../wwwroot/js/storage.js"></script>
 </div>
 
 <div id="blazor-error-ui">

@@ -1,0 +1,63 @@
+﻿@page "/candidate/create"
+@using Byte.TalentScout.Domain.Entities
+@using Microsoft.AspNetCore.Components.Authorization
+
+<AuthorizeView Context="authContext">
+    <Authorized>
+
+        <h3>Create Candidate</h3>
+
+        <EditForm Model="NewCandidate" OnValidSubmit="HandleValidSubmit" FormName="create-candidate">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="mb-3">
+                <label for="firstName" class="form-label">First Name</label>
+                <InputText id="firstName" class="form-control" @bind-Value="NewCandidate.FirstName" />
+            </div>
+
+            <div class="mb-3">
+                <label for="lastName" class="form-label">Last Name</label>
+                <InputText id="lastName" class="form-control" @bind-Value="NewCandidate.LastName" />
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <InputText id="email" class="form-control" @bind-Value="NewCandidate.Email" />
+            </div>
+
+            <div class="mb-3">
+                <label for="mobile" class="form-label">Mobile</label>
+                <InputText id="mobile" class="form-control" @bind-Value="NewCandidate.Mobile" />
+            </div>
+
+            <div class="mb-3">
+                <label for="cv" class="form-label">Curriculum Vitae Path</label>
+                <InputText id="cv" class="form-control" @bind-Value="NewCandidate.CirriculumVitaePath" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </EditForm>
+
+        @if (IsSubmitted)
+        {
+            <p class="alert alert-success">Candidate created successfully!</p>
+        }
+
+        @code {
+        [SupplyParameterFromForm(FormName = "create-candidate")]
+        private Candidate NewCandidate { get; set; } = new Candidate();
+
+        private bool IsSubmitted = false;
+
+        private async Task HandleValidSubmit()
+        {
+            IsSubmitted = true;
+
+            // Optionally clear the form
+            NewCandidate = new Candidate();
+        }
+        }
+
+    </Authorized>
+</AuthorizeView>

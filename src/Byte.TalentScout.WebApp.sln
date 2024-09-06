@@ -3,13 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Byte.TalentScout.UI", "Byte.TalentScout.UI\Byte.TalentScout.UI.csproj", "{D4A9E940-41E5-4693-A435-DDC51D08B75E}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Byte.TalentScout.API", "Byte.TalentScout.API\Byte.TalentScout.API.csproj", "{0A68DDF4-1F04-48C8-B47E-ECE9CACDD17C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Byte.TalentScout.Infrastructure", "Byte.TalentScout.Infrastructure\Byte.TalentScout.Infrastructure.csproj", "{10EF4A41-0390-45F9-9EA6-335413A7C06A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Byte.TalentScout.Infrastructure", "Byte.TalentScout.Infrastructure\Byte.TalentScout.Infrastructure.csproj", "{10EF4A41-0390-45F9-9EA6-335413A7C06A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Byte.TalentScout.Domain", "Byte.TalentScout.Domain\Byte.TalentScout.Domain.csproj", "{94A10E40-2E2E-41FD-A61E-49B225A246AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Byte.TalentScout.Domain", "Byte.TalentScout.Domain\Byte.TalentScout.Domain.csproj", "{94A10E40-2E2E-41FD-A61E-49B225A246AA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{41E05E02-58C8-4558-ABD6-253B45414A63}"
 EndProject
@@ -27,9 +25,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataAccess", "DataAccess", "{0F104804-78D7-41A4-847D-057BEA61D689}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Byte.TalentScout.Database", "Byte.TalentScout.Database\Byte.TalentScout.Database.csproj", "{96C4F4C9-2C1E-4969-AAC3-0CBEDA918BD6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Byte.TalentScout.Database", "Byte.TalentScout.Database\Byte.TalentScout.Database.csproj", "{96C4F4C9-2C1E-4969-AAC3-0CBEDA918BD6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Byte.TalentScout.Application", "Byte.TalentScout.Application\Byte.TalentScout.Application.csproj", "{53244222-9201-4943-B0F6-5AE2A46FEE6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Byte.TalentScout.Application", "Byte.TalentScout.Application\Byte.TalentScout.Application.csproj", "{53244222-9201-4943-B0F6-5AE2A46FEE6A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Byte.TalentScout.Client", "Byte.TalentScout.Client\Byte.TalentScout.Client.csproj", "{39B5EA65-CDE4-4853-945E-F28FD25348CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,10 +37,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D4A9E940-41E5-4693-A435-DDC51D08B75E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D4A9E940-41E5-4693-A435-DDC51D08B75E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D4A9E940-41E5-4693-A435-DDC51D08B75E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D4A9E940-41E5-4693-A435-DDC51D08B75E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0A68DDF4-1F04-48C8-B47E-ECE9CACDD17C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0A68DDF4-1F04-48C8-B47E-ECE9CACDD17C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A68DDF4-1F04-48C8-B47E-ECE9CACDD17C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -61,12 +57,15 @@ Global
 		{53244222-9201-4943-B0F6-5AE2A46FEE6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53244222-9201-4943-B0F6-5AE2A46FEE6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53244222-9201-4943-B0F6-5AE2A46FEE6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39B5EA65-CDE4-4853-945E-F28FD25348CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39B5EA65-CDE4-4853-945E-F28FD25348CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39B5EA65-CDE4-4853-945E-F28FD25348CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39B5EA65-CDE4-4853-945E-F28FD25348CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{D4A9E940-41E5-4693-A435-DDC51D08B75E} = {FCFDB4B3-42BB-421F-B929-ADFDF2C91970}
 		{0A68DDF4-1F04-48C8-B47E-ECE9CACDD17C} = {53868E71-54F8-4558-889F-4B0B3262696F}
 		{10EF4A41-0390-45F9-9EA6-335413A7C06A} = {09061351-04D8-45F7-8085-5C43B5B45EFA}
 		{94A10E40-2E2E-41FD-A61E-49B225A246AA} = {3625A0F6-7DBC-470C-9962-E01C24BB3065}
@@ -77,6 +76,7 @@ Global
 		{0F104804-78D7-41A4-847D-057BEA61D689} = {41E05E02-58C8-4558-ABD6-253B45414A63}
 		{96C4F4C9-2C1E-4969-AAC3-0CBEDA918BD6} = {0F104804-78D7-41A4-847D-057BEA61D689}
 		{53244222-9201-4943-B0F6-5AE2A46FEE6A} = {53868E71-54F8-4558-889F-4B0B3262696F}
+		{39B5EA65-CDE4-4853-945E-F28FD25348CD} = {FCFDB4B3-42BB-421F-B929-ADFDF2C91970}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B7AF0845-8038-4B4D-80C9-C00C0358449B}

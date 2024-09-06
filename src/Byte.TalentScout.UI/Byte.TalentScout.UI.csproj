@@ -1,14 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Blazored.LocalStorage" Version="4.5.0" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Byte.TalentScout.Domain\Byte.TalentScout.Domain.csproj" />

@@ -1,0 +1,57 @@
+﻿@page "/degree/create"
+@inject HttpClientErrorWrapper Http
+@using Byte.TalentScout.UI.Handlers
+@using Byte.TalentScout.Domain.Entities
+@using Microsoft.AspNetCore.Components.Authorization
+
+<h3>Create Degree</h3>
+
+<AuthorizeView Context="authContext">
+    <Authorized>
+
+        <EditForm Model="degree" OnValidSubmit="HandleValidSubmit" FormName="create-degree">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="mb-3">
+                <label for="name" class="form-label">Degree Name</label>
+                <InputText id="name" class="form-control" @bind-Value="degree.Name" />
+            </div>
+
+            <div class="mb-3">
+                <label for="type" class="form-label">Degree Type</label>
+                <InputSelect id="type" class="form-control" @bind-Value="degree.Type">
+                    <option value="">Select Degree Type</option>
+                    <option value="Bachelors">Bachelors</option>
+                    <option value="Masters">Masters</option>
+                    <option value="PhD">PhD</option>
+                    <option value="Diploma">Diploma</option>
+                </InputSelect>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </EditForm>
+
+        @if (IsSubmitted)
+        {
+            <p class="alert alert-success">Degree created successfully!</p>
+        }
+
+        @code {
+
+        [SupplyParameterFromForm(FormName = "create-degree")]
+        private Degree degree { get; set; } = new Degree();
+        
+        private bool IsSubmitted = false;
+
+
+        private async Task HandleValidSubmit()
+        {
+            await Http.PostAsJsonAsync<Degree>("degree/create", degree);
+            IsSubmitted = true;
+
+            degree = new Degree();
+        }
+        }
+    </Authorized>
+</AuthorizeView>

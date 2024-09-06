@@ -3,7 +3,10 @@
 @using Byte.TalentScout.Domain.ViewModels
 @using Byte.TalentScout.UI.Services
 @inject IAuthService AuthService
+@inject IJSRuntime jsRuntime
 @inject NavigationManager NavigationManager
+@rendermode InteractiveServer
+
 
 <h1>Login</h1>
 
@@ -37,18 +40,13 @@
 </div>
 
 @code {
-
     [SupplyParameterFromForm(FormName = "login-form")]
     private LoginViewModel loginModel { get; set; } = new();
 
     private bool ShowErrors;
     private string Error = "";
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-            await HandleLogin();
-    }
+    private bool loginSucceeded = false;
+    private string authToken;
 
     private async Task HandleLogin()
     {
@@ -58,9 +56,21 @@
             var result = await AuthService.Login(loginModel);
 
             if (result.IsSuccessful())
+            {
+                authToken = result.AccessToken;
+                loginSucceeded = true;
                 NavigationManager.NavigateTo("/");
+            }
             else
+            {
                 ShowErrors = true;
+                Error = "Login failed. Please check your credentials and try again.";
+            }
         }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await jsRuntime.InvokeVoidAsync("sessionStorageSetItem", "authToken", authToken);
     }
 }

@@ -1,90 +1,68 @@
 ﻿using System.Text;
 using System.Text.Json;
-using Microsoft.JSInterop;
-using Blazored.LocalStorage;
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Components;
 using Byte.TalentScout.Domain.ViewModels;
 using Microsoft.AspNetCore.Components.Authorization;
+using System.Threading.Tasks;
 
-namespace Byte.TalentScout.UI.Services;
-
-public class AuthService : IAuthService
+namespace Byte.TalentScout.UI.Services
 {
-    private const string authBaseUri = "https://localhost:7199";
-    private readonly IJSRuntime jsRuntime;
-    private readonly HttpClient httpClient;
-    private readonly AuthenticationStateProvider authenticationStateProvider;
-    private readonly ILocalStorageService localStorageService;
-    private readonly NavigationManager navigationManager;
+    public class AuthService : IAuthService
+    {
+        private const string authBaseUri = "https://localhost:7199";
+        private readonly HttpClient httpClient;
+        private readonly AuthenticationStateProvider authenticationStateProvider;
+        private readonly NavigationManager navigationManager;
 
-    public AuthService(
-        IJSRuntime jsRuntime,
-        HttpClient httpClient, 
-        AuthenticationStateProvider authenticationStateProvider, 
-        ILocalStorageService localStorageService, 
-        NavigationManager navigationManager)
-    {
-        this.jsRuntime = jsRuntime;
-        this.httpClient = httpClient;
-        this.authenticationStateProvider = authenticationStateProvider;
-        this.localStorageService = localStorageService;
-        this.navigationManager = navigationManager;
-    }
-    public async Task<RegisterResult> Register(RegisterViewModel registerModel)
-    {
-        var response = await httpClient.PostAsJsonAsync("api/accounts", registerModel);
-        return JsonSerializer.Deserialize<RegisterResult>(await response.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-    }
-
-    public async Task<LoginResult> Login(LoginViewModel loginModel)
-    {
-        try
+        public AuthService(
+            HttpClient httpClient,
+            AuthenticationStateProvider authenticationStateProvider,
+            NavigationManager navigationManager)
         {
-            var loginAsJson = JsonSerializer.Serialize(loginModel);
-            var response = await httpClient.PostAsync($"{authBaseUri}/login", new StringContent(loginAsJson, Encoding.UTF8, "application/json"));
-            var loginResult = JsonSerializer.Deserialize<LoginResult>(await response.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-
-            if (!response.IsSuccessStatusCode)
-                return loginResult;
-
-            await SetTokenInLocalStorageAndAuthorize(loginResult.AccessToken, loginModel.Email);
-
-            return loginResult;
+            this.httpClient = httpClient;
+            this.authenticationStateProvider = authenticationStateProvider;
+            this.navigationManager = navigationManager;
         }
-        catch (Exception)
+
+        public async Task<RegisterResult> Register(RegisterViewModel registerModel)
         {
-            return new LoginResult();
+            var response = await httpClient.PostAsJsonAsync("api/accounts", registerModel);
+            return JsonSerializer.Deserialize<RegisterResult>(await response.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
         }
-    }
 
-    private async Task SetTokenInLocalStorageAndAuthorize(string token, string email)
-    {
-        if (jsRuntime is IJSInProcessRuntime)
+        public async Task<LoginResult> Login(LoginViewModel loginModel)
         {
-            await localStorageService.SetItemAsStringAsync("authToken", token);
-            ((ApiAuthenticationStateProvider)authenticationStateProvider).MarkUserAsAuthenticated(email);
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
-
-            navigationManager.NavigateTo("/");
-        }
-    }
-
-    public async Task Logout()
-    {
-        try
-        {
-            if (jsRuntime is IJSInProcessRuntime)
+            try
             {
-                await localStorageService.RemoveItemAsync("authToken");
-                httpClient.DefaultRequestHeaders.Authorization = null;
-                ((ApiAuthenticationStateProvider)authenticationStateProvider).MarkUserAsLoggedOut();
-                navigationManager.NavigateTo("/login");
+                var loginAsJson = JsonSerializer.Serialize(loginModel);
+                var response = await httpClient.PostAsync($"{authBaseUri}/login", new StringContent(loginAsJson, Encoding.UTF8, "application/json"));
+                var loginResult = JsonSerializer.Deserialize<LoginResult>(await response.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+                if (!response.IsSuccessStatusCode)
+                    return loginResult;
+
+                // Set token and update authentication state
+                await SetTokenAndAuthorize(loginResult.AccessToken, loginModel.Email);
+
+                return loginResult;
+            }
+            catch (Exception)
+            {
+                return new LoginResult();
             }
         }
-        catch (Exception ex)
+
+        private async Task SetTokenAndAuthorize(string token, string email)
         {
-          
+            ((ApiAuthenticationStateProvider)authenticationStateProvider).MarkUserAsAuthenticated(email);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
+        }
+
+        public async Task Logout()
+        {
+            httpClient.DefaultRequestHeaders.Authorization = null;
+            ((ApiAuthenticationStateProvider)authenticationStateProvider).MarkUserAsLoggedOut();
         }
     }
 }
